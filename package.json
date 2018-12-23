@@ -1,0 +1,23 @@
+{
+  "name": "nightwatch-allure-reporter",
+  "version": "1.0.0",
+  "description": "Allure reporter for Nightwatch.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Deep27/nightwatch-allure-reporter.git"
+  },
+  "keywords": [
+    "allure",
+    "nightwatch"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "allure-js-commons": "^1.3.2",
+    "lodash": "^4.17.11"
+  },
+  "author": "Roman Sotnichenko",
+  "bugs": {
+    "url": "https://github.com/Deep27/nightwatch-allure-reporter/issues"
+  },
+  "homepage": "https://github.com/Deep27/nightwatch-allure-reporter#readme"
+}

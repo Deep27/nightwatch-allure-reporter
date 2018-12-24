@@ -17,11 +17,9 @@ const write = results => {
         for (const t in suite.completed) {
 
             const test = suite.completed[t];
-            console.log(`TEST CASE START: ${currentTime}`);
-            currentTime = currentTime + test.timeMs;
-            console.log(`CURRENT TIME: ${currentTime}`);
 
             allure.startCase(t, currentTime);
+            currentTime = currentTime + test.timeMs;
 
             console.log(`\tTest: ${t}:\t\t`);
             console.log(test);

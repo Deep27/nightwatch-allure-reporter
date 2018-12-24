@@ -15,25 +15,33 @@ const write = results => {
         const suite = results.modules[s];
 
         allure.startSuite(s, getTimestamp(suite.timestamp));
-        allure.startCase(s, getTimestamp(suite.timestamp));
 
         console.log(`Suite: ${s}:\t`);
         console.log(suite);
 
+        let testCaseStart = getTimestamp(suite.timestamp);
+        console.log(`Test case start: ${testCaseStart}`);
+
         for (const t in suite.completed) {
 
-            allure.startStep(t, getTimestamp(suite.timestamp));
             const test = suite.completed[t];
+
+            allure.startCase(t, testCaseStart);
+
             console.log(`\tTest: ${t}:\t\t`);
             console.log(test);
 
             test.assertions.forEach(a => {
+                allure.startStep(a.message, 0);
                 console.log(`Assertion: ${a.message}`);
+                allure.endStep(a.failure ? 'failed' : 'passed', 0);
             });
-            allure.endStep("passed", getTimestamp(suite.timestamp));
+
+            console.log(`Test time: ${test.timeMs}`);
+            allure.endCase("passed", "", testCaseStart + test.timeMs);
+            testCaseStart = testCaseStart + test.timeMs;
         }
 
-        allure.endCase("passed", "", getTimestamp(suite.timestamp));
         const suiteEndDate = addMillisToDate(suite.timestamp, 1000 * suite.time);
         console.log(`Suite end ${suiteEndDate}`);
         allure.endSuite(getTimestamp(suiteEndDate));

@@ -3,12 +3,7 @@ const allure = new Allure();
 const Runtime = require('allure-js-commons/runtime');
 const allureRuntime = new Runtime(allure);
 
-// (file = suite) => (testCase = test = step) => assertion
-
 const write = results => {
-
-    // console.log('results:');
-    // console.log(results);
 
     for (const s in results.modules) {
 
@@ -16,17 +11,17 @@ const write = results => {
 
         allure.startSuite(s, getTimestamp(suite.timestamp));
 
-        console.log(`Suite: ${s}:\t`);
-        console.log(suite);
-
-        let testCaseStart = getTimestamp(suite.timestamp);
-        console.log(`Test case start: ${testCaseStart}`);
+        let currentTime = getTimestamp(suite.timestamp);
+        console.log(`Test case start: ${currentTime}`);
 
         for (const t in suite.completed) {
 
             const test = suite.completed[t];
+            console.log(`TEST CASE START: ${currentTime}`);
+            currentTime = currentTime + test.timeMs;
+            console.log(`CURRENT TIME: ${currentTime}`);
 
-            allure.startCase(t, testCaseStart);
+            allure.startCase(t, currentTime);
 
             console.log(`\tTest: ${t}:\t\t`);
             console.log(test);
@@ -37,17 +32,20 @@ const write = results => {
                 allure.endStep(a.failure ? 'failed' : 'passed', 0);
             });
 
-            console.log(`Test time: ${test.timeMs}`);
-            allure.endCase("passed", "", testCaseStart + test.timeMs);
-            testCaseStart = testCaseStart + test.timeMs;
+            if (test.failed > 0 || test.errors > 0) {
+                allure.endCase('failed', test.message, currentTime);
+            } else if (test.skipped > 0) {
+                allure.endCase('skipped', "Testcase is skipped", currentTime);
+            } else {
+                allure.endCase('passed', '', currentTime);
+            }
+
+            // allure.endCase("passed", "", currentTime);
+            // testCaseStart = testCaseStart + test.timeMs;
         }
 
         const suiteEndDate = addMillisToDate(suite.timestamp, 1000 * suite.time);
-        console.log(`Suite end ${suiteEndDate}`);
         allure.endSuite(getTimestamp(suiteEndDate));
-
-        console.log(`Start date: ${suite.timestamp}`);
-        console.log(`End date: ${getStringDate(addMillisToDate(suite.timestamp, 1000 * suite.time))}`)
     }
 };
 

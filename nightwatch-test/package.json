@@ -1,0 +1,17 @@
+{
+  "name": "nightwatch-allure-reporter-test",
+  "description": "Tests for Allure reporter",
+  "scripts": {
+    "test": "node ./node_modules/.bin/nightwatch",
+    "report:allure": "node ./test/allure/generateReport.js"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.8.1",
+    "nightwatch": "^0.9.21",
+    "path": "^0.12.7",
+    "shelljs": "^0.8.3",
+
+    "comment-parser": "^0.5.1",
+    "lodash": "^4.17.11"
+  }
+}

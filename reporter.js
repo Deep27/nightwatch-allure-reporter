@@ -5,6 +5,8 @@ const allureRuntime = new Runtime(allure);
 
 function AllureReporter(options) {
 
+    // @TODO set options to allure above ?
+
     this.options = options;
 
     this.write = results => {

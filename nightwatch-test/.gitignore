@@ -1,0 +1,9 @@
+node_modules/
+allure-results/
+allure-report/
+reports/
+test/nightwatch/dev/
+test/nightwatch/logs/
+test/allure/killSelenium.js
+chromedriver.log
+npm-debug.log

@@ -1,5 +1,7 @@
 # nightwatch-allure-reporter
 
+##### VERY RAW! NOT RECOMMENDED TO USE YET!
+
 ###### Allure reporter for Nightwatch.js. Tested with Nightwatch.js v.0.9.21
 
 ##### Add to project
